@@ -20,26 +20,22 @@ window.onload = function(){
 
 
 	function rotated() {
-		// // Background
-		// ctx.beginPath();
-		// ctx.fillStyle = background;
-		// ctx.fillRect(0, 0, length, length);
+		// Background
+		ctx.beginPath();
+		ctx.fillStyle = background;
+		ctx.fillRect(0, 0, length, length);
 
-		// // Outer box
-		// ctx.beginPath();
-		// ctx.strokeStyle = color_outer; // arr[0];
-		// ctx.strokeRect(ix, iy, l, l);
+		// Outer box
+		ctx.beginPath();
+		ctx.strokeStyle = color_outer; // arr[0];
+		ctx.strokeRect(ix, iy, l, l);
 
 		// variables for inner box
-		// let growth = 0.25 * Math.cos(k) + 0.25; // growing behavior Range: [0, 0.5] Center: 0.25
+		let growth = 0.25 * Math.cos(k) + 0.25; // growing behavior Range: [0, 0.5] Center: 0.25
 		const x_inner = ix + offset/2; // inner box's x (top left)
 		const y_inner = iy + offset/2;	// inner box's y (top left)
 		const l_inner = l - offset; // inner box's length
-		var minGrowth = 0.5;
-		var maxGrowth = 1.5;
-		var rateGrowth = (maxGrowth-minGrowth)/2;
-		var centerGrowth = (maxGrowth+minGrowth)/2;
-		var growth = -rateGrowth*Math.cos(k)+centerGrowth;
+
 
 		function spin() {
 				// Spinning Box ==> New Inner Box
@@ -56,7 +52,6 @@ window.onload = function(){
 				// ctx.arc(x_inner + l_inner/2, y_inner + l_inner/2, l_inner/2*Math.sqrt(2)*spinner, 0, Math.PI * 2);
 				// ctx.stroke();
 
-				// Inner box
 				ctx.beginPath();
 				ctx.save();
 				ctx.translate(ix+l/2, iy+l/2);
@@ -67,21 +62,12 @@ window.onload = function(){
 				// } else { ctx.strokeStyle = "cyan";};
 				ctx.strokeRect(-l_inner/2*spinner, -l_inner/2*spinner, l_inner*spinner, l_inner*spinner);
 				ctx.restore();
-
-				// Second Inner Box
-				ctx.beginPath();
-				ctx.save();
-				ctx.translate(ix+l/2, iy+l/2);
-				ctx.rotate(Math.PI/4 - k);
-				ctx.strokeStyle = color_outer;
-				ctx.strokeRect(-l_inner/2*growth, -l_inner/2*growth, l_inner*growth, l_inner*growth);
-				ctx.restore();
 		}
 
 		spin();
 
 
-		if(growth <= minGrowth) {
+		if(growth <= 0) {
 			let temp = color_outer;
 			color_outer = color_inner;
 			color_inner = temp;

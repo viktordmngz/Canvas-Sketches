@@ -11,6 +11,7 @@ window.onload = function(){
 
 	// var color_inner = "#3efaac"; // inner box color MINT
 	var color_inner = "Salmon"; // inner box color - ALTERNATE SALMON
+	var color_third = "#ea4464"; // inner box 2 color - SILVER
 
 	var l = 0.6*length; // box length
 	var ix = length/6; // initial x pos
@@ -44,11 +45,11 @@ window.onload = function(){
 		function spin() {
 				// Spinning Box ==> New Inner Box
 				// if(k >= Math.PI){ k = Math.PI }; // Pauses functions at max size
-				let min = 1.0; // desired minumum value
-				let max = 2.5; // desired maximum value
-				let range_cos = Math.abs(max - min)/2;
-				let center_range_cos = (min+max)/2;
-				let spinner = -range_cos*Math.cos(k)+center_range_cos;
+				var min = 1.0; // desired minumum value
+				var max = 2.5; // desired maximum value
+				var range_cos = Math.abs(max - min)/2;
+				var center_range_cos = (min+max)/2;
+				var spinner = -range_cos*Math.cos(k)+center_range_cos;
 				
 				// // Desired path of the inner square (Circle)
 				// ctx.beginPath();
@@ -74,17 +75,26 @@ window.onload = function(){
 				ctx.translate(ix+l/2, iy+l/2);
 				ctx.rotate(Math.PI/4 - k);
 				ctx.strokeStyle = color_outer;
+				ctx.strokeRect(-l_inner/2*spinner, -l_inner/2*spinner, l_inner*spinner, l_inner*spinner);
+				ctx.restore();
+
+				// Third Inner Box
+				ctx.beginPath();
+				ctx.save();
+				ctx.translate(ix+l/2, iy+l/2);
+				ctx.rotate(Math.PI/4 + k);
+				ctx.strokeStyle = color_third;
 				ctx.strokeRect(-l_inner/2*growth, -l_inner/2*growth, l_inner*growth, l_inner*growth);
 				ctx.restore();
 		}
 
 		spin();
 
-
-		if(growth <= minGrowth) {
+		if(growth == 1.5) {
 			let temp = color_outer;
 			color_outer = color_inner;
-			color_inner = temp;
+			color_inner = color_third;
+			color_third = temp;
 		}
 
 		k += Math.PI/180;
