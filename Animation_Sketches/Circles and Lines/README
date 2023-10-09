@@ -1,0 +1,12 @@
+In order to run the JS file, first download the JSON files.
+
+Run the following code within the Command Prompt/Terminal:
+
+canvas-sketch --open circles_and_lines.js
+
+This should open the animation in a browser. If it does not, try installing Node.js and rerunning the command.
+
+This animation was part of a tutorial course on Domestika called "Creative Coding: Making Visuals with JavaScript" by Bruno Imbrizi.
+If you need any other information, try the course or reaching out to Mr. Imbrizi.
+
+Enjoy.
