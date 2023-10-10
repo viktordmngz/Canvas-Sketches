@@ -6,7 +6,17 @@ Run the following code within the Command Prompt/Terminal:
 canvas-sketch --open circles_and_lines.js
 
 This should open the animation in a browser. If it does not, try installing Node.js and rerunning the command.
+======================================================================================================================================
+Be sure to install Node.js in the same directory that you download these files to.
+To install Node.js, visit their website and choose the distribution for your OS.
 
+Then, run the following commands:
+npm install canvas-sketch-cli --global
+npm install canvas-sketch-util --save
+
+The first command will install the command canvas-sketch-cli to your command terminal and allow you to run Canvas from the terminal.
+The second command will install the utilities needed within the Circles and Lines file like Math and Random.
+======================================================================================================================================
 This animation was part of a tutorial course on Domestika called "Creative Coding: Making Visuals with JavaScript" by Bruno Imbrizi.
 If you need any other information, try the course or reaching out to Mr. Imbrizi.
 
