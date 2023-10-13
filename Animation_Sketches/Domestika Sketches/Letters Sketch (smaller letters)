@@ -1,0 +1,110 @@
+const canvasSketch = require('canvas-sketch');
+
+const settings = {
+  dimensions: [ 1080, 1080 ]
+};
+
+let manager;
+
+// TEXT Variables
+let text = 'A'; // Starting Letter
+let fontFamily = 'serif';
+let fontSize;
+
+// TYPECANVAS --> Smaller canvas which will hold our image/letter data
+const typeCanvas = document.createElement('canvas');
+const typeContext = typeCanvas.getContext('2d');
+
+
+const sketch = ({ context, width, height }) => {
+  // SMALLER IMAGE VARIABLES --> will be used to size the smaller image
+  // BITMAP
+  const cell = 10;
+  const cols = Math.floor(width/cell);
+  const rows = Math.floor(height/cell); // Every 20px in our canvas will be mapped to 1 cell ("1px")
+  const numCells = cols * rows;
+  typeCanvas.width = cols;
+  typeCanvas.height = rows;
+  fontSize = cols;
+  
+  /*
+  We put the variables here because we only need the grid properties once.
+  We want them in sketch() function but before the rendering
+  We will not be using these variables globally like we did with the other variables.
+  */
+
+
+  return ({ context, width, height }) => {
+    // BACKGROUND LETTERS --> Match to Canvas Background to avoid eyesore
+    typeContext.fillStyle = 'black';
+    typeContext.fillRect(0, 0, cols, rows);
+
+    typeContext.fillStyle = 'ghostwhite';
+    typeContext.font = `${fontSize}px ${fontFamily}`;
+    typeContext.textBaseline = 'top';
+
+    // BITMAP VARIABLES
+    const metrics = typeContext.measureText(text);
+    const mx = metrics.actualBoundingBoxLeft * -1;
+    const my = metrics.actualBoundingBoxAscent * -1;
+    const mw = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
+    const mh = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
+    const tx = (cols-mw)*0.5 - mx;
+    const ty = (rows-mh)*0.5 - my;
+
+
+    // SMALLER CANVAS --> Helps us pass data from 
+    typeContext.save();
+    typeContext.translate(tx, ty);
+    // TEXT
+    typeContext.fillText(text, 0, 0);
+    typeContext.restore();    
+
+    // TYPEDATA --> Will provide the data needed to recreate the smaller letter on the main canvas
+    const typeData = typeContext.getImageData(0,0,cols,rows).data;
+
+    // BACKGROUND OF CANVAS
+    context.fillStyle = "black";
+    context.fillRect(0, 0, width, height);
+
+    // FOR LOOP --> loop through each pixel to get color data and draw in individual cells
+    for (let i = 0; i < numCells; i++) {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+
+      const x = col * cell;
+      const y = row * cell;
+
+      // RGBA values from each cell --> stored: [red, green, blue, alpha,...]
+      const r = typeData[i * 4 + 0];
+      const g = typeData[i * 4 + 1];
+      const b = typeData[i * 4 + 2];
+      const a = typeData[i * 4 + 3];
+
+      // PIXELATED COLOR MAP
+      context.fillStyle = `rgb(${r}, ${g}, ${b})`;
+
+      // SMALL GLYPH LETTERS
+      context.save();
+      context.translate(x,y);
+      context.translate(cell/2,cell/2);
+      context.fillText(text, 0, 0);
+      context.restore();
+    };
+  };
+};
+
+// FUNCTIONS
+const onKeyUp = (e) => {
+  text = e.key.toUpperCase();
+  manager.render();
+};
+
+document.addEventListener('keyup', onKeyUp);
+
+const start = async () => {
+  manager = await canvasSketch(sketch, settings);
+};
+
+start();
