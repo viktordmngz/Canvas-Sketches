@@ -1,5 +1,17 @@
-In order to run the JS file, first download the JSON files.
+In order to run the JS file, first download the JSON files which can be found on the main page of this repository.
 Also, make sure to download all the files to the same directory.
+
+NOTE
+=================================================================================================================================================================
+The Tweakpane import on grid-sketch.js will give you a parse error that looks like this:
+ParseError: 'import' and 'export' may appear only with 'sourceType: module'
+
+I have personally not figured out how to correct this error as it involves changing a global setting in the
+configurations and when I tried to find out where this was, I was unable to. I would encourage you, the smarter
+people, to look into fixing it and maybe letting me know how you did it. Here is a link to one of the many sources
+I tried in order to fix this error: https://stackoverflow.com/questions/40029113/syntaxerror-import-and-export-may-appear-only-with-sourcetype-module-g
+
+================================================================================================================================================================
 
 Run the following code within the Command Prompt/Terminal:
 
