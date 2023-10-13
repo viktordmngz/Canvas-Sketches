@@ -15,9 +15,9 @@ npm install canvas-sketch-cli --global
 npm install canvas-sketch-util --save
 
 The first command will install the command canvas-sketch-cli to your command terminal and allow you to run Canvas from the terminal.
-The second command will install the utilities needed within the Circles and Lines file like Math and Random.
+The second command will install the utilities needed within the files like Math and Random.
 ======================================================================================================================================
-This animation was part of a tutorial course on Domestika called "Creative Coding: Making Visuals with JavaScript" by Bruno Imbrizi.
+These animations are a part of a course on Domestika called "Creative Coding: Making Visuals with JavaScript" by Bruno Imbrizi.
 If you need any other information, try the course or reaching out to Mr. Imbrizi.
 
 Enjoy.
